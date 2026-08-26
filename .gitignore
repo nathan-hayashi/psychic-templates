@@ -1,0 +1,8 @@
+# Runtime never ships. Globbed from day one — enumeration is the drift C-26 recorded twice
+# in the parent lineage.
+.env
+.env.*
+logs/
+*.log
+.claude/state/
+scratch/
