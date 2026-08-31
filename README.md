@@ -6,7 +6,8 @@ merely looks complete. Extracted from the psychic-crew program (born at its HELI
 where every discipline here ran first as law: the intake contract, the single risk vocabulary,
 the evidence labels, the UNKNOWN doctrine.
 
-**PRIVATE at creation.** Publication is its own future gate decision.
+**PUBLIC** since an out-of-band flip after creation (flip date unrecorded — gh pushedAt matches
+the birth commit; ratified 2026-08-31, see the VIS-RECONCILE ledger row). Private at creation.
 
 ## The doctrine
 

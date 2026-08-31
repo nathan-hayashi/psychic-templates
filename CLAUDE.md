@@ -1,7 +1,7 @@
 # psychic-templates — law
 
 Prompt-contract template library. Born 2026-08-26 under the parent HELIX program's SIDE-0 gate
-(psychic-crew, a sibling of this repo). PRIVATE at creation; publication is its own future gate.
+(psychic-crew, a sibling of this repo). Private at creation; flipped public out-of-band and ratified at S0-RECONCILE (see GATES.md).
 
 ## Binding rules
 - **Evidence labels.** Load-bearing claims carry `[E]` (established: the file or fetch itself),
@@ -17,3 +17,6 @@ Prompt-contract template library. Born 2026-08-26 under the parent HELIX program
 - **No absolute machine paths** in tracked files; resolve through `$HOME` or the repo root.
 - **No credentials, ever** — zero is the default posture, inherited from the parent's
   secrets contract (R-SEC-1). This repo has no granting gate.
+
+Canonical author identity (S0-RECONCILE, 2026-08-31): **Nathan Lim** — LICENSE copyright
+lines cite this form estate-wide; the GitHub handle is an address, not a copyright holder.
