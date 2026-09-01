@@ -17,3 +17,4 @@ this repo gates rarely, and the epoch row may legitimately be the last row.
 ## Explainers
 
 - [S0-RECONCILE](S0-RECONCILE.md) — license, identity, visibility truth, and this discipline itself.
+- [TPL-R1](TPL-R1.md) — six rungs now, and the ladder diagram is bound, not decorative.

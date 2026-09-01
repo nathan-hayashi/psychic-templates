@@ -18,7 +18,7 @@ Every template embeds that line verbatim; the validator proves it. `SCHEMA.md` d
 field any template may use — a template naming an undefined field is a validator FAIL, both
 directions, mechanically.
 
-## The library — **4 templates**
+## The library — **6 templates**
 
 | Template | Use when |
 |---|---|
@@ -26,6 +26,19 @@ directions, mechanically.
 | `templates/high-stakes-task.md` | Full rigor: audits, irreversible work, anything where "looks done" is the enemy. |
 | `templates/context-policy.md` | The boundary block: what may be read, what may leave, who filters it. |
 | `templates/audit-checklist.md` | Binary-execution audits over an existing corpus; report, never silently correct. |
+| `templates/quick-brief.md` | The floor: four fields for small load-bearing asks that still must not guess. |
+| `templates/change-request.md` | Bounded changes to live systems: thirteen fields, the rung the 10-17 gap demanded. |
+
+## The ladder
+
+Pick by weight. The numbers are BOUND: `validate-templates` recomputes every template's distinct
+`## Fields` count live and fails this picture on drift.
+
+```mermaid
+%% anti-drift: these counts are asserted equal to the live distinct Fields-block counts.
+graph LR
+  QB["quick-brief\n4 fields"] --> CP["context-policy\n7 fields"] --> AC["audit-checklist\n9 fields"] --> RC["request-contract\n10 fields"] --> CR["change-request\n13 fields"] --> HS["high-stakes-task\n17 fields"]
+```
 
 ## Quickstart
 

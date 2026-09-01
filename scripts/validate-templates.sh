@@ -47,7 +47,7 @@ ok "all shell files parse"
 tlist=$(ls templates/*.md 2>/dev/null)
 tcount=$(grep -c . <<<"$tlist")
 [[ "$tcount" =~ ^[0-9]+$ ]] || tcount=0
-[ "$tcount" -eq 4 ] && ok "exactly 4 templates present" || no "template count $tcount != 4"
+[ "$tcount" -eq 6 ] && ok "exactly 6 templates present" || no "template count $tcount != 6"
 for f in templates/*.md; do
   chk_structure "$f" && ok "structure: $f" || no "structure incomplete: $f"
 done
@@ -72,6 +72,24 @@ for f in templates/*.md; do
   [[ "$dn" =~ ^[0-9]+$ ]] || dn=0
   [ "$dn" -eq 1 ] && ok "doctrine verbatim once: $f" || no "doctrine missing or duplicated in $f (count $dn)"
 done
+
+
+echo "== A2. the ladder — distinct Fields-block counts bound to the README diagram (TPL-R1) =="
+ladc=$(for f in templates/*.md; do
+  awk '/^## Fields$/{f=1;next} f&&/^## /{exit} f' "$f" | grep -oE '^[a-z_]+:' | sort -u | grep -c .
+done | sort -n | tr '\n' ' ')
+ladr=$(awk '/^```mermaid$/{f=1;next} f&&/^```/{exit} f' README.md | grep -oE '[0-9]+ fields' | grep -oE '[0-9]+' | sort -n | tr '\n' ' ')
+ladn=$(printf '%s' "$ladr" | wc -w); [[ "$ladn" =~ ^[0-9]+$ ]] || ladn=0
+[ "$ladn" -eq "$tcount" ] && ok "diagram names one count per template ($ladn)" \
+  || no "diagram count rows $ladn != $tcount templates"
+{ [ -n "$ladr" ] && [ "$ladr" = "$ladc" ]; } \
+  && ok "ladder bound: README diagram == live distinct counts ($ladc)" \
+  || no "ladder DRIFT: README [$ladr] vs live [$ladc]"
+lp=$(mktemp); sed 's/17 fields/99 fields/' README.md > "$lp"
+ladp=$(awk '/^```mermaid$/{f=1;next} f&&/^```/{exit} f' "$lp" | grep -oE '[0-9]+ fields' | grep -oE '[0-9]+' | sort -n | tr '\n' ' ')
+[ "$ladp" != "$ladc" ] && ok "control fires: a drifted diagram number is seen by the comparator" \
+  || no "ladder control DID NOT fire"
+rm -f "$lp"
 
 echo "== E. hygiene =="
 abshits=$(git ls-files -z | xargs -0 grep -lF -- "$ABS" 2>/dev/null)
