@@ -1,5 +1,7 @@
 # psychic-templates
 
+![templates](https://img.shields.io/badge/templates-6-2f6f4f)
+
 A prompt-contract template library: fill-in contracts that make a request's incompleteness
 visible, durable, and safe to execute around — instead of optimizing it into something that
 merely looks complete. Extracted from the psychic-crew program (born at its HELIX gate SIDE-0),
@@ -40,10 +42,16 @@ graph LR
   QB["quick-brief\n4 fields"] --> CP["context-policy\n7 fields"] --> AC["audit-checklist\n9 fields"] --> RC["request-contract\n10 fields"] --> CR["change-request\n13 fields"] --> HS["high-stakes-task\n17 fields"]
 ```
 
+## What is not asserted
+
+The suite binds structure, vocabulary, the single risk scale, the doctrine line, and the ladder
+counts. It does NOT assert fitness: whether a template matches a request's real weight is
+judgment (each Verification section says what "valid" means; climbing or descending the ladder
+is yours). Stated here so the green suite is read as what it is.
+
 ## Quickstart
 
 ```bash
-mkdir -p ~/projects && cd ~/projects
 git clone https://github.com/nathan-hayashi/psychic-templates.git
 cd psychic-templates && ./scripts/validate-templates.sh
 ```

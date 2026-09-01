@@ -102,10 +102,17 @@ done
 [ -z "$credhits" ] && ok "no credential-shaped strings in tracked files" || no "credential shape in:$credhits"
 
 echo "== F. README count binding =="
-rn=$(grep -oE '\*\*[0-9]+ templates\*\*' README.md 2>/dev/null | head -1 | grep -oE '[0-9]+')
-[[ "$rn" =~ ^[0-9]+$ ]] || rn=-1
-[ "$rn" -eq "$tcount" ] && ok "README template count ($rn) matches the tree ($tcount)" \
-  || no "README says $rn templates, the tree has $tcount"
+rvals=$(grep -oE '\*\*[0-9]+ templates\*\*|badge/templates-[0-9]+' README.md 2>/dev/null | grep -oE '[0-9]+' | sort -u)
+rvn=$(grep -c . <<<"$rvals"); [[ "$rvn" =~ ^[0-9]+$ ]] || rvn=0
+{ [ "$rvn" -eq 1 ] && [ "$rvals" = "$tcount" ]; } \
+  && ok "README template count bound every-occurrence incl. the badge ($rvals == tree $tcount)" \
+  || no "README template binding broken: distinct values [$(tr '\n' ' ' <<<"$rvals")] vs tree $tcount"
+rcp=$(mktemp); cat README.md > "$rcp"; printf '\nbadge/templates-99\n' >> "$rcp"
+rv2=$(grep -oE '\*\*[0-9]+ templates\*\*|badge/templates-[0-9]+' "$rcp" | grep -oE '[0-9]+' | sort -u | grep -c .)
+[[ "$rv2" =~ ^[0-9]+$ ]] || rv2=0
+[ "$rv2" -ge 2 ] && ok "control fires: a conflicting badge count reaches the extractor (badge-unbinds-the-prose hole closed)" \
+  || no "every-occurrence control DID NOT fire"
+rm -f "$rcp"
 
 echo "== G. negative controls (the checks must be seen to fire) =="
 # Existence first: an expect-fail check against a MISSING fixture passes vacuously — this build
